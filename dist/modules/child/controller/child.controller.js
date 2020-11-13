@@ -5,32 +5,29 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 class ChildController {
-  async registerUser(request, response) {
+  async postChild(request, response) {
+    const {
+      id
+    } = request.user;
     const {
       name,
-      email,
-      password
+      gender,
+      birthday
     } = request.body;
     return response.status(204).json();
   }
 
-  async loginUser(request, response) {
+  async getChild(request, response) {
     const {
-      email,
-      password
-    } = request.body;
-    const result = {
-      token: _jsonwebtoken.default.sign({
-        id: '123123'
-      }, process.env.JWT_SECRET || '', {
-        expiresIn: '7d'
-      })
-    };
+      id
+    } = request.user;
+    const result = [{
+      id: 123,
+      name: 'Aline',
+      birthday: '2000-03-01',
+      id_responsible: id
+    }];
     return response.status(200).json(result);
   }
 

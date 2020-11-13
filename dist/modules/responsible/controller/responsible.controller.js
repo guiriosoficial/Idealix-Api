@@ -9,8 +9,8 @@ var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-class LoginController {
-  async registerUser(request, response) {
+class ResponsibleController {
+  async postResponsible(request, response) {
     const {
       name,
       email,
@@ -19,7 +19,7 @@ class LoginController {
     return response.status(204).json();
   }
 
-  async loginUser(request, response) {
+  async postLogin(request, response) {
     const {
       email,
       password
@@ -36,4 +36,4 @@ class LoginController {
 
 }
 
-exports.default = LoginController;
+exports.default = ResponsibleController;

@@ -21,9 +21,10 @@ childRouter.use(_auth.default);
 childRouter.post('/', (0, _celebrate.celebrate)({
   [_celebrate.Segments.BODY]: {
     name: _celebrate.Joi.string().required(),
-    email: _celebrate.Joi.string().email().required(),
-    password: _celebrate.Joi.string().required()
+    gender: _celebrate.Joi.string().required(),
+    birthday: _celebrate.Joi.date().required()
   }
-}), childController.registerUser);
+}), childController.postChild);
+childRouter.get('/', childController.getChild);
 var _default = childRouter;
 exports.default = _default;

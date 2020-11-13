@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import jwt from "jsonwebtoken";
 
 export default class ChildController {
     public async postChild(request: Request, response: Response): Promise<Response> {

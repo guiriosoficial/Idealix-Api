@@ -5,16 +5,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = ensureAuthenticated;
 
+var _error_handler = _interopRequireDefault(require("@shared/error_handler"));
+
 var _jsonwebtoken = require("jsonwebtoken");
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function ensureAuthenticated(request, response, next) {
-  debugger;
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    return response.status(401).json({
-      message: 'JWT token is missing'
-    });
+    throw new _error_handler.default('JWT token is missing', 401);
   }
 
   const [token] = authHeader.split(' ');
@@ -29,8 +30,6 @@ function ensureAuthenticated(request, response, next) {
     };
     return next();
   } catch {
-    return response.status(401).json({
-      message: 'JWT is invalid token'
-    });
+    throw new _error_handler.default('JWT is invalid', 401);
   }
 }

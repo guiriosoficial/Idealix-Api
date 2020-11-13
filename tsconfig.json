@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
+    "lib": [
+      "es5",
+      "es6"
+    ],
     "target": "es5",
     "module": "commonjs",
+    "moduleResolution": "node",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
@@ -16,6 +21,7 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true
   }
 }
