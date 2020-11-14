@@ -5,8 +5,10 @@ export default class ChildController {
     public async postChild(request: Request, response: Response): Promise<Response> {
         const { id } = request.user;
         const { name, gender, birthday } = request.body;
+
         const childService = new ChildService();
         await childService.postChild({ name, gender, birthday, id_responsible: id });
+
         return response.status(201).json();
     }
 
@@ -17,4 +19,4 @@ export default class ChildController {
         
         return response.status(200).json(result);
     }
-}
+} 

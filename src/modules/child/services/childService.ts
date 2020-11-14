@@ -12,13 +12,13 @@ export class ChildService implements IChildService {
         const result = await this.ormRepository.find({
             where: { id_responsible }
         }) 
+
         return result;
     }
     async postChild({ name, gender, birthday, id_responsible } : ChildDTO): Promise<IChild | undefined> {
         const child = await this.ormRepository.create({
             name, gender, birthday, id_responsible
         });
-        console.log(child);
         await this.ormRepository.save(child);
         return child;
     }

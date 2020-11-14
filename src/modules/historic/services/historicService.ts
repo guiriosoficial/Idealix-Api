@@ -9,10 +9,20 @@ export class HistoricService implements IHistoricService {
     constructor() {
         this.ormRepository = getRepository(Historic);
     }
-    postHistoric(data: HistoricDTO): Promise<IHistoric | undefined> {
-        throw new Error("Method not implemented.");
+    async postHistoric( { id_child, weight, height, measurement_date }: HistoricDTO): Promise<IHistoric | undefined> {
+        const child = await this.ormRepository.create({
+            id_child, weight, height, measurement_date
+        });
+        await this.ormRepository.save(child);
+console.log(child);
+        return child;
     }
-    getHistoric(data: HistoricDTO): Promise<IHistoric | undefined> {
-        throw new Error("Method not implemented.");
+
+    async getHistoric({ id_child }: HistoricDTO): Promise<IHistoric[]> {
+        const result = await this.ormRepository.find({
+            where: { id_child }
+        }) 
+
+        return result;
     }
 }

@@ -15,11 +15,11 @@ export class Historic1605302417516 implements MigrationInterface {
                     },
                     {
                         name: 'weight',
-                        type: 'int',
+                        type: 'decimal(10,2)',
                     },
                     {
                         name: 'height',
-                        type: 'int',
+                        type: 'decimal(10,2)',
                     },
                     {
                         name: 'measurement_date',
@@ -28,7 +28,6 @@ export class Historic1605302417516 implements MigrationInterface {
                     {
                         name: 'id_child',
                         type: 'varchar',
-                        generationStrategy: 'uuid',
                     },
                     {
                         name: 'created_at',
@@ -47,7 +46,6 @@ export class Historic1605302417516 implements MigrationInterface {
                         referencedColumnNames: ['id'],
                         columnNames: ['id_child'],
                         onDelete: 'CASCADE',
-                        onUpdate: 'CASCADE',
                     },
                 ],
             })
@@ -57,5 +55,4 @@ export class Historic1605302417516 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('historic')
     }
-
 }
