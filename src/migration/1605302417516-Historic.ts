@@ -43,7 +43,6 @@ export class Historic1605302417516 implements MigrationInterface {
                 ],
                 foreignKeys: [
                     {
-                        name: 'id_child',
                         referencedTableName: 'child',
                         referencedColumnNames: ['id'],
                         columnNames: ['id_child'],

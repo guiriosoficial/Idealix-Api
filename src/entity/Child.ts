@@ -31,7 +31,6 @@ export class Child implements IChild {
     @CreateDateColumn()
     update_at: Date;
 
-    @ManyToOne(() => Responsible, { eager: true })
-    @JoinColumn({ name: 'id' })
+    @Column()
     id_responsible: string;
 }

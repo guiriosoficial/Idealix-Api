@@ -15,7 +15,7 @@ export class ChildService implements IChildService {
         return result;
     }
     async postChild({ name, gender, birthday, id_responsible } : ChildDTO): Promise<IChild | undefined> {
-        const child = this.ormRepository.create({
+        const child = await this.ormRepository.create({
             name, gender, birthday, id_responsible
         });
         console.log(child);

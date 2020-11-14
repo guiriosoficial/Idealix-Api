@@ -28,7 +28,6 @@ export class Child1605300847507 implements MigrationInterface {
                     {
                         name: 'id_responsible',
                         type: 'varchar',
-                        generationStrategy: 'uuid',
                     },
                     {
                         name: 'created_at',

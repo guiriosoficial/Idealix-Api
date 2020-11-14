@@ -31,7 +31,6 @@ export class Historic implements IHistoric {
     @CreateDateColumn()
     update_at: Date;
 
-    @ManyToOne(() => Child, { eager: true })
-    @JoinColumn({ name: 'id' })
+    @Column()
     id_child: string;
 }
