@@ -1,12 +1,10 @@
 import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import { Responsible } from "./Responsible";
 
-export enum EGender { F = "f", M = "m" };
-
 export interface IChild{
     id: string,
     name: string,
-    gender: EGender,
+    gender: 'f'|'m',
     birthday: Date,
     create_at: Date,
     update_at: Date,
@@ -22,7 +20,7 @@ export class Child implements IChild {
     name: string;
 
     @Column()
-    gender: EGender;
+    gender: 'f'|'m';
 
     @Column()
     birthday: Date;

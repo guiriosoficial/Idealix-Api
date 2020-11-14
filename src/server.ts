@@ -6,6 +6,7 @@ import cors from 'cors';
 import routes from 'routes';
 import ErrorHandler from '@shared/error_handler';
 import { errors } from 'celebrate';
+import 'db';
 
 const app = express();
 

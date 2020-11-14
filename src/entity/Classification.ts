@@ -1,10 +1,9 @@
 import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn} from "typeorm";
-import { EGender } from "./Child";
 
 
 export interface IClassification{
     id: string,
-    gender: EGender,
+    gender: 'f'|'m',
     weight: number,
     height: number,
     age: number,
@@ -18,7 +17,7 @@ export class Classification implements IClassification {
     id: string;
 
     @Column()
-    gender: EGender;
+    gender: 'f'|'m';
 
     @Column()
     weight: number;
