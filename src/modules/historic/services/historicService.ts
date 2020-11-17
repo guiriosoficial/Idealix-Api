@@ -14,7 +14,7 @@ export class HistoricService implements IHistoricService {
             id_child, weight, height, measurement_date
         });
         await this.ormRepository.save(child);
-console.log(child);
+
         return child;
     }
 

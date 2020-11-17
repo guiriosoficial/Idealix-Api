@@ -13,8 +13,6 @@ export class ClassificationService implements IClassificationService {
     async getClassification(): Promise<IClassification[]> {
         const result = await this.ormRepository.find();
         
-        console.log(result);
-        
         return result;
     }
 }

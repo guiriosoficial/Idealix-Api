@@ -1,5 +1,4 @@
 import {Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
-import { Child } from "./Child";
 
 export interface IHistoric{
     id: string,
@@ -16,10 +15,10 @@ export class Historic implements IHistoric {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column()
+    @Column('decimal',{precision: 5, scale: 2})
     weight: number;
 
-    @Column()
+    @Column('decimal',{precision: 5, scale: 2})
     height: number;
 
     @Column()

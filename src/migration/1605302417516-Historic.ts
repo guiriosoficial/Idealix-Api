@@ -15,11 +15,15 @@ export class Historic1605302417516 implements MigrationInterface {
                     },
                     {
                         name: 'weight',
-                        type: 'decimal(10,2)',
+                        type: 'decimal',
+                        precision: 5,
+                        scale: 2,
                     },
                     {
                         name: 'height',
-                        type: 'decimal(10,2)',
+                        type: 'decimal',
+                        precision: 5,
+                        scale: 2,
                     },
                     {
                         name: 'measurement_date',

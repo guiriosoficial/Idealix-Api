@@ -14,6 +14,12 @@ export class ResponsibleService implements IResponsibleService {
         });
         return responsible;
     }
+    async getExistResponsible({ email }: ResponsibleDTO): Promise<IResponsible | undefined> {
+        const responsible = await this.ormRepository.findOne({
+            where: { email }
+        });
+        return responsible;
+    }
     async saveResponsible({ name, email, password }: ResponsibleDTO): Promise<IResponsible | undefined> {
         const responsible = this.ormRepository.create({
             name, email, password
