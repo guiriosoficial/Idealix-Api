@@ -18,17 +18,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const historicController = new _historic.default();
 const historicRouter = (0, _express.Router)();
 historicRouter.use(_auth.default);
-historicRouter.get('/:id_child', (0, _celebrate.celebrate)({
+historicRouter.get('/:childId', (0, _celebrate.celebrate)({
   [_celebrate.Segments.PARAMS]: {
-    id_child: _celebrate.Joi.string().uuid().required()
+    childId: _celebrate.Joi.string().uuid().required()
   }
 }), historicController.getHistoric);
 historicRouter.post('/', (0, _celebrate.celebrate)({
   [_celebrate.Segments.BODY]: {
-    id_child: _celebrate.Joi.string().uuid().required(),
+    childId: _celebrate.Joi.string().uuid().required(),
     weight: _celebrate.Joi.number().required(),
     height: _celebrate.Joi.number().required(),
-    measurement_date: _celebrate.Joi.date().required()
+    measurementDate: _celebrate.Joi.date().required()
   }
 }), historicController.postHistoric);
 var _default = historicRouter;

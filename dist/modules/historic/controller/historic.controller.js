@@ -8,26 +8,22 @@ exports.default = void 0;
 class HistoricController {
   async postHistoric(request, response) {
     const {
-      id_child,
+      childId,
       weight,
       height,
-      measurement_date
+      measurementDate
     } = request.body;
     return response.status(204).json();
   }
 
   async getHistoric(request, response) {
-    const {
-      id_child
-    } = request.params;
-    const {
-      id
-    } = request.user;
+    const { childId } = request.params;
+    const { id } = request.user;
     const result = [{
-      id_child,
+      childId,
       weight: 0.45,
       height: 1.45,
-      measurement_date: '2020-04-10'
+      measurementDate: '2020-04-10'
     }];
     return response.status(200).json(result);
   }

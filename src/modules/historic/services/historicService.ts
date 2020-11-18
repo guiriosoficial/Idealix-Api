@@ -9,18 +9,18 @@ export class HistoricService implements IHistoricService {
     constructor() {
         this.ormRepository = getRepository(Historic);
     }
-    async postHistoric( { id_child, weight, height, measurement_date }: HistoricDTO): Promise<IHistoric | undefined> {
+    async postHistoric( { childId, weight, height, measurementDate }: HistoricDTO): Promise<IHistoric | undefined> {
         const child = await this.ormRepository.create({
-            id_child, weight, height, measurement_date
+            id_child: childId, weight, height, measurement_date: measurementDate
         });
         await this.ormRepository.save(child);
 
         return child;
     }
 
-    async getHistoric({ id_child }: HistoricDTO): Promise<IHistoric[]> {
+    async getHistoric({ childId }: HistoricDTO): Promise<IHistoric[]> {
         const result = await this.ormRepository.find({
-            where: { id_child }
+            where: { id_child: childId }
         }) 
 
         return result;
