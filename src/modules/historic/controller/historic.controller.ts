@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { HistoricService } from '../services/historicService';
+import { ChildService } from '../../child/services/childService';
 
 export default class HistoricController{
     public async postHistoric(request: Request, response: Response): Promise<Response> {
@@ -16,8 +17,12 @@ export default class HistoricController{
         const { id } = request.user;
 
         const historicService = new HistoricService();
-        const result = await historicService.getHistoric({ childId })
+        const historic = await historicService.getHistoric({ childId })
 
-        return response.status(200).json(result);
+        const childService = new ChildService();
+        const child = await childService.getChildById({ id_child: childId })
+
+
+        return response.status(200).json({ ...child, historic });
     }
 }

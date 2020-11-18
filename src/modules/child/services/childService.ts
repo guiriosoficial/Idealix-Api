@@ -22,4 +22,12 @@ export class ChildService implements IChildService {
         await this.ormRepository.save(child);
         return child;
     }
+    async getChildById({ id_child }: ChildDTO): Promise<IChild | undefined> {
+        const child = await this.ormRepository.findOne({
+            where: { id: id_child }
+        })
+
+        return child;
+
+    }
 }
