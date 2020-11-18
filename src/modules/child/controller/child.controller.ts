@@ -7,9 +7,9 @@ export default class ChildController {
         const { name, gender, birthday } = request.body;
 
         const childService = new ChildService();
-        await childService.postChild({ name, gender, birthday, id_responsible: id });
+        const result = await childService.postChild({ name, gender, birthday, id_responsible: id });
 
-        return response.status(201).json();
+        return response.status(201).json(result);
     }
 
     public async getChild(request: Request, response: Response): Promise<Response> {
@@ -19,4 +19,4 @@ export default class ChildController {
         
         return response.status(200).json(result);
     }
-} 
+}
