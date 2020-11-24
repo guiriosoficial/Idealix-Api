@@ -23,9 +23,10 @@ export default class HistoricController{
         const childService = new ChildService();
         const child = await childService.getChildById({ id_child: childId })
 
+        const historicLenght = historic.length
         const state = {
-            height: historic[historic.length - 1].height,
-            weight: historic[historic.length - 1].weight,
+            height: historicLenght ? historic[historicLenght - 1].height : null,
+            weight: historicLenght ? historic[historicLenght - 1].weight : null,
             age: (Date.now() - +new Date(child ? child.birthday : '')) / 31557600000,
             status: ''
         }
