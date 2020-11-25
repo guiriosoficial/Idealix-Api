@@ -19,11 +19,15 @@ export class Classification1605302667174 implements MigrationInterface {
                     },
                     {
                         name: 'weight',
-                        type: 'int',
+                        type: 'decimal',
+                        precision: 5,
+                        scale: 2,
                     },
                     {
                         name: 'height',
-                        type: 'int',
+                        type: 'decimal',
+                        precision: 5,
+                        scale: 2,
                     },
                     {
                         name: 'age',

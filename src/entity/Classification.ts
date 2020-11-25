@@ -19,10 +19,10 @@ export class Classification implements IClassification {
     @Column()
     gender: 'f'|'m';
 
-    @Column()
+    @Column('decimal',{precision: 5, scale: 2})
     weight: number;
 
-    @Column()
+    @Column('decimal',{precision: 5, scale: 2})
     height: number;
 
     @Column()
