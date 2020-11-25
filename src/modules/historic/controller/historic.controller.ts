@@ -18,17 +18,22 @@ export default class HistoricController{
 
         const historicService = new HistoricService();
         const historic = await historicService.getHistoric({ childId })
-        historic.sort((a, b) => Number(a.measurement_date) - Number(b.measurement_date))
+        const processedHistory =  historic
+            .sort((a, b) => Number(a.measurement_date) - Number(b.measurement_date))
+            .map(h => Object.assign(h, { imc: h.weight / Math.sqrt(h.height) }))
 
         const childService = new ChildService();
         const child = await childService.getChildById({ id_child: childId })
 
-        const historicLenght = historic.length
+        const historicLenght = processedHistory.length
+        const lastHeight = historicLenght ? processedHistory[historicLenght - 1].height : null
+        const lastWidght = historicLenght ? processedHistory[historicLenght - 1].weight : null
+        const lastImc = historicLenght ? processedHistory[historicLenght - 1].imc : ''
         const state = {
-            height: historicLenght ? historic[historicLenght - 1].height : null,
-            weight: historicLenght ? historic[historicLenght - 1].weight : null,
+            height: lastHeight,
+            weight: lastWidght,
             age: (Date.now() - +new Date(child ? child.birthday : '')) / 31557600000,
-            status: ''
+            imc: lastImc
         }
 
         return response.status(200).json({

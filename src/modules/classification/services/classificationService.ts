@@ -11,7 +11,9 @@ export class ClassificationService implements IClassificationService {
     }
     
     async getClassification(): Promise<IClassification[]> {
-        const result = await this.ormRepository.find();
+        const result = await this.ormRepository.query(
+            'SELECT * FROM `idealix`.`classification` ORDER BY `gender`, `age`'
+        );
         
         return result;
     }
