@@ -7,7 +7,8 @@ export default class ClassificationController{
         const classificationService = new ClassificationService()
 
         const result = await classificationService.getClassification();
-        
+        result.map(c => Object.assign(c, { imc: (c.weight / Math.pow((c.height / 100), 2)).toFixed(2) }));
+
         return response.status(200).json(result);
     }
 }
