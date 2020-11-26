@@ -3,6 +3,7 @@ import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn} from "typeorm"
 
 export interface IClassification{
     id: string,
+    reference: 'min'|'ideal'|'max',
     gender: 'f'|'m',
     weight: number,
     height: number,
@@ -15,6 +16,9 @@ export interface IClassification{
 export class Classification implements IClassification {
     @PrimaryGeneratedColumn('uuid')
     id: string;
+
+    @Column()
+    reference: 'min'|'ideal'|'max';
 
     @Column()
     gender: 'f'|'m';

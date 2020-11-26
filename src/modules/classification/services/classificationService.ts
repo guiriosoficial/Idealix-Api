@@ -12,7 +12,7 @@ export class ClassificationService implements IClassificationService {
     
     async getClassification(): Promise<IClassification[]> {
         const result = await this.ormRepository.query(
-            'SELECT * FROM `idealix`.`classification` ORDER BY `gender`, `age`'
+            'SELECT * FROM `idealix`.`classification` ORDER BY `gender`, `reference`, `age`'
         );
         
         return result;

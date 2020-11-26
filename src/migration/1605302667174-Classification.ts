@@ -14,6 +14,10 @@ export class Classification1605302667174 implements MigrationInterface {
                         generationStrategy: 'uuid',
                     },
                     {
+                        name: 'reference',
+                        type: 'varchar',
+                    },
+                    {
                         name: 'gender',
                         type: 'varchar',
                     },
