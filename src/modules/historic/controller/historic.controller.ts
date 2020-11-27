@@ -47,7 +47,7 @@ export default class HistoricController{
             height: lastHeight,
             weight: lastWidght,
             age: calcAge(child ? child.birthday : new Date()),
-            status: 'Saldável',
+            status: 'Saudável',
             imc: lastImc
         }
 
