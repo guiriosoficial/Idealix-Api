@@ -17,4 +17,12 @@ export class ClassificationService implements IClassificationService {
         
         return result;
     }
+
+    async getClassificationToStatus(gender: string, age: number): Promise<IClassification[]> {
+        const result = await this.ormRepository.find({
+            where: { gender, age }
+        });
+        
+        return result;
+    }
 }
