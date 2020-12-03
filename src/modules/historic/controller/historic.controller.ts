@@ -4,7 +4,26 @@ import { ChildService } from '../../child/services/childService';
 import { ClassificationService } from '../../classification/services/classificationService'
 
 function calcAge (time = new Date) {
-    return ~~Math.round(((Date.now() - +new Date(time)) / 31557600000) * 12)
+    return ~~(((Date.now() - +new Date(time)) / 31557600000) * 12)
+}
+
+function getStatus (classifications: any[], imc: number) {
+    const classification = {
+        max: classifications.find(c => c.reference === 'max') || 0,
+        min: classifications.find(c => c.reference === 'min') || 0,
+        ideal: classifications.find(c => c.reference === 'ideal') || 0
+    }
+
+    let status
+    if (imc > classification.max.imc) {
+        status = 'Acima do peso'
+    } else if (imc < classification.min.imc) {
+        status = 'Abaixo do peso'
+    } else {
+        status = 'Saudável'
+    }
+
+    return status
 }
 
 export default class HistoricController{
@@ -17,9 +36,20 @@ export default class HistoricController{
         const childService = new ChildService();
         const child = await childService.getChildById({ id_child: childId })
 
+        const imc = Number(((result ? result.weight : 0) / Math.pow((result ? result.height : 0), 2)).toFixed(2))
+        const age = calcAge(child ? child.birthday : new Date()) - calcAge(result ? result.measurement_date : new Date()) - 10
+        const roudedAge = age > 24 && age % 12 ? age - (age % 12) : age
+
+        const classificationService = new ClassificationService();
+        const classifications = await classificationService.getClassificationToStatus(child ? child.gender : 'f', roudedAge)
+        classifications.map(c => Object.assign(c, { imc: Number((c.weight / Math.pow((c.height / 100), 2)).toFixed(2)) }))    
+
+        const status = getStatus(classifications, imc)
+
         Object.assign(result, {
-            imc: Number(((result ? result.weight : 0) / Math.pow((result ? result.height : 0), 2)).toFixed(2)),
-            age: calcAge(child ? child.birthday : new Date()) - calcAge(result ? result.measurement_date : new Date())
+            imc,
+            age,
+            status
         })
         return response.status(201).json(result);
     }
@@ -38,41 +68,28 @@ export default class HistoricController{
             .sort((a, b) => Number(a.measurement_date) - Number(b.measurement_date))
             .map(h => Object.assign(h, {
                 imc: Number((h.weight / Math.pow(h.height, 2)).toFixed(2)),
-                age: calcAge(child ? child.birthday : new Date()) - calcAge(h.measurement_date)
+                age: (calcAge(child ? child.birthday : new Date()) - calcAge(h.measurement_date)) - 10
             }));
         
         const historicLenght = processedHistory.length
         const lastHeight = historicLenght ? processedHistory[historicLenght - 1].height : null
         const lastWidght = historicLenght ? processedHistory[historicLenght - 1].weight : null
-        const lastMeasurementDate = historicLenght ? processedHistory[historicLenght - 1].measurement_date : null
+        const lastMeasurementDate = historicLenght ? processedHistory[historicLenght - 1].measurement_date : new Date()
         const lastImc = historicLenght ? processedHistory[historicLenght - 1].imc : 0
         const lastAge = historicLenght ? processedHistory[historicLenght - 1].age : 0
-        const roudedAge = lastAge > 24 && lastAge % 12 ? lastAge - (lastAge % 12) : lastAge 
+        const roudedAge = lastAge > 24 && lastAge % 12 ? lastAge - (lastAge % 12) : lastAge
 
         const classificationService = new ClassificationService();
         const classifications = await classificationService.getClassificationToStatus(child ? child.gender : 'f', roudedAge)
-        classifications.map(c => Object.assign(c, { imc: Number((c.weight / Math.pow((c.height / 100), 2)).toFixed(2)) }))
+        classifications.map(c => Object.assign(c, { imc: Number((c.weight / Math.pow((c.height / 100), 2)).toFixed(2)) }))    
 
-        const classification = {
-            max: classifications.find(c => c.reference === 'max') || 0,
-            min: classifications.find(c => c.reference === 'min') || 0,
-            ideal: classifications.find(c => c.reference === 'ideal') || 0
-        }
-
-        let status
-        if (lastImc > classification.max.imc) {
-            status = 'Acima do peso'
-        } else if (lastImc < classification.min.imc) {
-            status = 'Abaixo do peso'
-        } else {
-            status = 'Saudável'
-        }
+        const status =  getStatus(classifications, lastImc)
 
         const state = {
             height: lastHeight,
             weight: lastWidght,
             measurementDate: lastMeasurementDate,
-            age: calcAge(child ? child.birthday : '00-00-0000'),
+            age: calcAge(child ? child.birthday : new Date()) - 10,
             status,
             imc: lastImc
         }
