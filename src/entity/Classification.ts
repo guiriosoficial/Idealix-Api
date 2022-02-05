@@ -1,4 +1,4 @@
-import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn} from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
 export interface IClassification{
@@ -7,6 +7,7 @@ export interface IClassification{
     gender: 'f'|'m',
     weight: number,
     height: number,
+    imc: number,
     age: number,
     create_at: Date,
     update_at: Date
@@ -28,6 +29,9 @@ export class Classification implements IClassification {
 
     @Column('decimal',{precision: 5, scale: 2})
     height: number;
+
+    @Column('decimal',{precision: 5, scale: 2})
+    imc: number;
 
     @Column()
     age: number;

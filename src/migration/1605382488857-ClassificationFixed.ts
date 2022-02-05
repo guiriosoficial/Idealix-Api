@@ -1,7 +1,6 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
 export class ClassificationFixed1605382488857 implements MigrationInterface {
-
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query("INSERT INTO idealix.classification (id, reference, gender, weight, height, imc, age, created_at, updated_at) VALUES ('1', 'min', 'f', 2.4, 45.4, 11.64, 0, DEFAULT, DEFAULT)")
         await queryRunner.query("INSERT INTO idealix.classification (id, reference, gender, weight, height, imc, age, created_at, updated_at) VALUES ('2', 'min', 'f', 3.2, 49.8, 12.9, 1, DEFAULT, DEFAULT)")
@@ -194,5 +193,4 @@ export class ClassificationFixed1605382488857 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query("DELETE FROM idealix.classification")
     }
-
 }

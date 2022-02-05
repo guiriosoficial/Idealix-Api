@@ -7,6 +7,7 @@ interface ITokenPayload {
     exp: number;
     id: string;
 }
+
 export default function ensureAuthenticated(
     request: Request,
     response: Response,

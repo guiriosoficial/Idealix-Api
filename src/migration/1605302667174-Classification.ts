@@ -34,6 +34,12 @@ export class Classification1605302667174 implements MigrationInterface {
                         scale: 2,
                     },
                     {
+                        name: 'imc',
+                        type: 'decimal',
+                        precision: 5,
+                        scale: 2,
+                    },
+                    {
                         name: 'age',
                         type: 'int',
                     },
@@ -55,5 +61,4 @@ export class Classification1605302667174 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('classification')
     }
-
 }
