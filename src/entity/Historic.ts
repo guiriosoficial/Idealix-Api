@@ -4,6 +4,9 @@ export interface IHistoric{
     id: string,
     weight: number,
     height: number,
+    imc: number,
+    age: number,
+    status: string,
     measurement_date: Date,
     create_at: Date,
     update_at: Date,
@@ -20,6 +23,15 @@ export class Historic implements IHistoric {
 
     @Column('decimal',{precision: 5, scale: 2})
     height: number;
+
+    @Column('decimal',{precision: 5, scale: 2})
+    imc: number;
+
+    @Column('decimal',{precision: 5, scale: 2})
+    age: number;
+
+    @Column()
+    status: string;
 
     @Column()
     measurement_date: Date;

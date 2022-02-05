@@ -61,14 +61,11 @@ export default class HistoricController{
     public async postHistoric(request: Request, response: Response): Promise<Response> {
         const { childId, weight, height, measurementDate } = request.body;
 
-        const historicService = new HistoricService();
-        const result = await historicService.postHistoric({ childId, weight, height, measurementDate })
+        const imc = Number(((weight || 0) / Math.pow((height || 0), 2)).toFixed(2))
 
         const childService = new ChildService();
         const child = await childService.getChildById({ id_child: childId })
-
-        const imc = Number(((result ? result.weight : 0) / Math.pow((result ? result.height : 0), 2)).toFixed(2))
-        const age = calcAge(child ? child.birthday : new Date()) - calcAge(result ? result.measurement_date : new Date())
+        const age = calcAge(child ? child.birthday : new Date()) - calcAge(measurementDate || new Date())
         const roudedAge = age > 24 && age % 12 ? age - (age % 12) : age
 
         const classificationService = new ClassificationService();
@@ -77,11 +74,9 @@ export default class HistoricController{
 
         const status = getStatus(classifications, imc)
 
-        Object.assign(result, {
-            imc,
-            age,
-            status
-        })
+        const historicService = new HistoricService();
+        const result = await historicService.postHistoric({ childId, weight, height, imc, status, age, measurementDate })
+
         return response.status(201).json(result);
     }
 
@@ -95,12 +90,7 @@ export default class HistoricController{
         
         const childService = new ChildService();
         const child = await childService.getChildById({ id_child: childId })
-        const processedHistory = historic
-            .sort((a, b) => Number(a.measurement_date) - Number(b.measurement_date))
-            .map(h => Object.assign(h, {
-                imc: Number((h.weight / Math.pow(h.height, 2)).toFixed(2)),
-                age: (calcAge(child ? child.birthday : new Date()) - calcAge(h.measurement_date))
-            }));
+        const processedHistory = historic.sort((a, b) => Number(a.measurement_date) - Number(b.measurement_date));
         
         const historicLenght = processedHistory.length
         const lastHeight = historicLenght ? processedHistory[historicLenght - 1].height : null
@@ -108,20 +98,14 @@ export default class HistoricController{
         const lastMeasurementDate = historicLenght ? processedHistory[historicLenght - 1].measurement_date : new Date()
         const lastImc = historicLenght ? processedHistory[historicLenght - 1].imc : 0
         const lastAge = historicLenght ? processedHistory[historicLenght - 1].age : 0
-        const roudedAge = lastAge > 24 && lastAge % 12 ? lastAge - (lastAge % 12) : lastAge
-
-        const classificationService = new ClassificationService();
-        const classifications = await classificationService.getClassificationToStatus(child ? child.gender : 'f', roudedAge)
-        classifications.map(c => Object.assign(c, { imc: Number((c.weight / Math.pow((c.height / 100), 2)).toFixed(2)) }))    
-
-        const status =  getStatus(classifications, lastImc)
+        const lastStatus = historicLenght ? processedHistory[historicLenght - 1].status : ''
 
         const state = {
             height: lastHeight,
             weight: lastWidght,
             measurementDate: lastMeasurementDate,
-            age: calcAge(child ? child.birthday : new Date()),
-            status,
+            age: lastAge,
+            status: lastStatus,
             imc: lastImc
         }
 
