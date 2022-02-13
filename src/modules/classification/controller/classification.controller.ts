@@ -1,4 +1,3 @@
-import ErrorHandler from '@shared/error_handler';
 import { Request, Response } from 'express';
 import { ClassificationService } from '../services/classificationService';
 

@@ -64,7 +64,7 @@ export default class HistoricController{
         const imc = Number(((weight || 0) / Math.pow((height || 0), 2)).toFixed(2))
 
         const childService = new ChildService();
-        const child = await childService.getChildById({ id_child: childId })
+        const child = await childService.getChildById({ child_id: childId })
         const age = calcAge(child ? child.birthday : new Date()) - calcAge(measurementDate || new Date())
         const roudedAge = age > 24 && age % 12 ? age - (age % 12) : age
 
@@ -89,7 +89,7 @@ export default class HistoricController{
 
         
         const childService = new ChildService();
-        const child = await childService.getChildById({ id_child: childId })
+        const child = await childService.getChildById({ child_id: childId })
         const processedHistory = historic.sort((a, b) => Number(a.measurement_date) - Number(b.measurement_date));
         
         const historicLenght = processedHistory.length

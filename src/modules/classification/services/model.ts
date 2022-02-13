@@ -1,5 +1,5 @@
-import { IClassification } from "entity/Classification";
+import { ClassificationInterface } from "entity/Classification";
 
-export interface IClassificationService {
-    getClassification ():Promise<IClassification[]>
+export interface ClassificationInterfaceService {
+    getClassification ():Promise<ClassificationInterface[]>
 };

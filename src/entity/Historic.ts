@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-export interface IHistoric{
+export interface HistoricInterface {
     id: string,
     weight: number,
     height: number,
@@ -10,11 +10,11 @@ export interface IHistoric{
     measurement_date: Date,
     create_at: Date,
     update_at: Date,
-    id_child: string
+    child_id: string
 }
 
 @Entity('historic')
-export class Historic implements IHistoric {
+export class Historic implements HistoricInterface {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -43,5 +43,5 @@ export class Historic implements IHistoric {
     update_at: Date;
 
     @Column()
-    id_child: string;
+    child_id: string;
 }

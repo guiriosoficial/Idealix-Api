@@ -1,15 +1,15 @@
-import { IChild } from "entity/Child";
+import { ChildInterface } from "entity/Child";
 
 export interface ChildDTO { 
-    id_child?: string,
+    child_id?: string,
     name?: string,
     gender?: 'f'|'m',
     birthday?: Date,
-    id_responsible?: string 
+    responsible_id?: string 
 }
 
-export interface IChildService {
-    getChild (data: ChildDTO):Promise<IChild[]>
-    getChildById (data: ChildDTO): Promise<IChild | undefined>
-    postChild (data: ChildDTO):Promise<IChild | undefined>
+export interface ChildInterfaceService {
+    getChild (data: ChildDTO):Promise<ChildInterface[]>
+    getChildById (data: ChildDTO): Promise<ChildInterface | undefined>
+    postChild (data: ChildDTO):Promise<ChildInterface | undefined>
 };

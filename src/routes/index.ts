@@ -5,8 +5,10 @@ import responsibleRouter from '@modules/responsible/routes/responsible.routes';
 import { Router } from 'express';
 
 const routes = Router();
+
 routes.use('/responsible', responsibleRouter);
 routes.use('/child', childRouter);
 routes.use('/historic', historicRouter);
 routes.use('/classification', classificationRouter);
+
 export default routes;

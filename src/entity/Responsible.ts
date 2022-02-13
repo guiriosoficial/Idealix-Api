@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-export interface IResponsible{
+export interface ResponsibleInterface {
     id: string,
     name: string,
     email: string,
@@ -10,7 +10,7 @@ export interface IResponsible{
 }
 
 @Entity('responsible')
-export class Responsible implements IResponsible {
+export class Responsible implements ResponsibleInterface {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 

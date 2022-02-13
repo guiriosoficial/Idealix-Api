@@ -7,7 +7,7 @@ export default class ChildController {
         const { name, gender, birthday } = request.body;
 
         const childService = new ChildService();
-        const result = await childService.postChild({ name, gender, birthday, id_responsible: id });
+        const result = await childService.postChild({ name, gender, birthday, responsible_id: id });
 
         return response.status(201).json(result);
     }
@@ -15,7 +15,7 @@ export default class ChildController {
     public async getChild(request: Request, response: Response): Promise<Response> {
         const { id } = request.user;
         const childService = new ChildService();
-        const result = await childService.getChild({ id_responsible: id });
+        const result = await childService.getChild({ responsible_id: id });
         
         return response.status(200).json(result);
     }

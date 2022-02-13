@@ -1,12 +1,12 @@
 import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
-import ensureAuthenticated from 'middlewares/auth.middleware';
+import ensureAuthentication from 'middlewares/authHandler';
 import ChildController from '../controller/child.controller';
 
 const childController = new ChildController();
 const childRouter = Router();
 
-childRouter.use(ensureAuthenticated)
+childRouter.use(ensureAuthentication)
 childRouter.post(
     '/',
     celebrate({

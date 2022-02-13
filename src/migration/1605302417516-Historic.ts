@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class Historic1605302417516 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
@@ -29,7 +29,7 @@ export class Historic1605302417516 implements MigrationInterface {
                         type: 'date',
                     },
                     {
-                        name: 'id_child',
+                        name: 'child_id',
                         type: 'varchar',
                     },
                     {
@@ -47,7 +47,7 @@ export class Historic1605302417516 implements MigrationInterface {
                     {
                         referencedTableName: 'child',
                         referencedColumnNames: ['id'],
-                        columnNames: ['id_child'],
+                        columnNames: ['child_id'],
                         onDelete: 'CASCADE',
                     },
                 ],

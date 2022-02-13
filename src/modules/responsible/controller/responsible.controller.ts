@@ -1,4 +1,4 @@
-import ErrorHandler from '@shared/error_handler';
+import Err from '@shared/err';
 import { Request, Response } from 'express';
 import jwt from "jsonwebtoken";
 import md5 from 'md5';
@@ -11,7 +11,7 @@ export default class ResponsibleController {
 
         const responsible = await responsibleService.getExistResponsible({ email });
         if (responsible) {
-            throw new ErrorHandler('This email already exists', 400);
+            throw new Err('This email already exists', 400);
         } else {
             const obj = await responsibleService.saveResponsible({ name, email, password: md5(password) });
             if (obj) {
@@ -21,7 +21,7 @@ export default class ResponsibleController {
                 }
                 return response.status(201).json(result);
             } else {
-                throw new ErrorHandler('User not created', 400);
+                throw new Err('User not created', 400);
             }
         }
     }
@@ -38,7 +38,7 @@ export default class ResponsibleController {
             }
             return response.status(200).json(result);
         } else {
-            throw new ErrorHandler('E-mail or password is invalid', 400);
+            throw new Err('E-mail or password is invalid', 400);
         }
     }
 }

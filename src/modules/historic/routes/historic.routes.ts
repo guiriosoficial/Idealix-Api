@@ -1,11 +1,11 @@
 import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
-import ensureAuthenticated from 'middlewares/auth.middleware';
+import ensureAuthentication from 'middlewares/authHandler';
 import HistoricController from '../controller/historic.controller';
 
 const historicController = new HistoricController();
 const historicRouter = Router();
-historicRouter.use(ensureAuthenticated);
+historicRouter.use(ensureAuthentication);
 historicRouter.get(
     '/:childId',
     celebrate({

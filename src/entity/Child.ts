@@ -1,17 +1,17 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-export interface IChild{
+export interface ChildInterface {
     id: string,
     name: string,
     gender: 'f'|'m',
     birthday: Date,
     create_at: Date,
     update_at: Date,
-    id_responsible: string
+    responsible_id: string
 }
 
 @Entity('child')
-export class Child implements IChild {
+export class Child implements ChildInterface {
     @PrimaryGeneratedColumn('uuid')
     id: string;
     
@@ -31,5 +31,5 @@ export class Child implements IChild {
     update_at: Date;
 
     @Column()
-    id_responsible: string;
+    responsible_id: string;
 }

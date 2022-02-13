@@ -1,4 +1,4 @@
-export default class ErrorHandler {
+export default class Err {
     public readonly message: string;
 
     public readonly statusCode: number;

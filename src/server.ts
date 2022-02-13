@@ -1,40 +1,23 @@
-import express, { NextFunction, Request, Response } from 'express';
-import 'express-async-errors';
-import 'dotenv/config';
-import 'reflect-metadata';
+import express from 'express';
 import cors from 'cors';
 import routes from 'routes';
-import ErrorHandler from '@shared/error_handler';
+import notFoundHandler from 'middlewares/notFoundHandler';
+import errorHandler from 'middlewares/errorHandler';
 import { errors } from 'celebrate';
-import { createConnections } from 'typeorm';
-// import 'db';
-createConnections();
+import 'express-async-errors';
+import 'reflect-metadata';
+import 'dotenv/config';
+import 'db';
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(routes);
-app.use((request: Request, response: Response, next) => {
-	throw new ErrorHandler('Not Found', 404);
-})
+app.use(notFoundHandler);
 app.use(errors());
-app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
-	if(err instanceof ErrorHandler) {
-        return response.status(err.statusCode).json({
-            status: 'Error',
-            message: err.message
-        });
-    }
-
-    console.error(err);
-    
-    return response.status(500).json({
-        status: 'error',
-        message: 'Internal Server Error!'
-    });
-});
+app.use(errorHandler);
 
 app.listen(4000, () => {
-	console.log('🚀 Server started on http://localhost:4000  ');
+	console.log('🚀 Server started on http://localhost:4000');
 });

@@ -1,4 +1,4 @@
-import { IHistoric } from "entity/Historic";
+import { HistoricInterface } from "entity/Historic";
 
 export interface HistoricDTO {
     childId: string,
@@ -10,7 +10,7 @@ export interface HistoricDTO {
     measurementDate?: Date
 }
 
-export interface IHistoricService {
-    postHistoric (data: HistoricDTO):Promise<IHistoric | undefined>
-    getHistoric (data: HistoricDTO):Promise<IHistoric[]>
+export interface HistoricInterfaceService {
+    postHistoric (data: HistoricDTO):Promise<HistoricInterface | undefined>
+    getHistoric (data: HistoricDTO):Promise<HistoricInterface[]>
 };

@@ -1,30 +1,30 @@
-import { IChild, Child } from "entity/Child";
+import { ChildInterface, Child } from "entity/Child";
 import { getRepository, Repository } from "typeorm";
-import { IChildService, ChildDTO } from "./model";
+import { ChildInterfaceService, ChildDTO } from "./model";
 
-export class ChildService implements IChildService {
+export class ChildService implements ChildInterfaceService {
     private ormRepository: Repository<Child>;
 
     constructor() {
         this.ormRepository = getRepository(Child);
     }
-    async getChild({ id_responsible }: ChildDTO): Promise<IChild[]> {
+    async getChild({ responsible_id }: ChildDTO): Promise<ChildInterface[]> {
         const result = await this.ormRepository.find({
-            where: { id_responsible }
+            where: { responsible_id }
         }) 
 
         return result;
     }
-    async postChild({ name, gender, birthday, id_responsible } : ChildDTO): Promise<IChild | undefined> {
+    async postChild({ name, gender, birthday, responsible_id } : ChildDTO): Promise<ChildInterface | undefined> {
         const child = await this.ormRepository.create({
-            name, gender, birthday, id_responsible
+            name, gender, birthday, responsible_id
         });
         await this.ormRepository.save(child);
         return child;
     }
-    async getChildById({ id_child }: ChildDTO): Promise<IChild | undefined> {
+    async getChildById({ child_id }: ChildDTO): Promise<ChildInterface | undefined> {
         const child = await this.ormRepository.findOne({
-            where: { id: id_child }
+            where: { id: child_id }
         })
 
         return child;

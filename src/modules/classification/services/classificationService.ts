@@ -1,16 +1,16 @@
 import { Classification } from "entity/Classification";
-import { IClassification } from "entity/Classification";
+import { ClassificationInterface } from "entity/Classification";
 import { getRepository, Repository } from "typeorm";
-import { IClassificationService } from "./model";
+import { ClassificationInterfaceService } from "./model";
 
-export class ClassificationService implements IClassificationService {
+export class ClassificationService implements ClassificationInterfaceService {
     private ormRepository: Repository<Classification>;
 
     constructor() {
         this.ormRepository = getRepository(Classification);
     }
     
-    async getClassification(): Promise<IClassification[]> {
+    async getClassification(): Promise<ClassificationInterface[]> {
         const result = await this.ormRepository.query(
             'SELECT * FROM `idealix`.`classification` ORDER BY `gender`, `reference`, `age`'
         );
@@ -18,7 +18,7 @@ export class ClassificationService implements IClassificationService {
         return result;
     }
 
-    async getClassificationToStatus(gender: string, age: number): Promise<IClassification[]> {
+    async getClassificationToStatus(gender: string, age: number): Promise<ClassificationInterface[]> {
         const result = await this.ormRepository.find({
             where: { gender, age }
         });

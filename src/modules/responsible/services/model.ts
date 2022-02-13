@@ -1,9 +1,9 @@
-import { IResponsible } from "entity/Responsible";
+import { ResponsibleInterface } from "entity/Responsible";
 
 export interface ResponsibleDTO { name?: string, email: string, password?: string }
 
-export interface IResponsibleService {
-    getResponsible (data: ResponsibleDTO):Promise<IResponsible | undefined>
-    getExistResponsible (data: ResponsibleDTO):Promise<IResponsible | undefined>
-    saveResponsible (data: ResponsibleDTO):Promise<IResponsible | undefined>
+export interface ResponsibleInterfaceService {
+    getResponsible (data: ResponsibleDTO):Promise<ResponsibleInterface | undefined>
+    getExistResponsible (data: ResponsibleDTO):Promise<ResponsibleInterface | undefined>
+    saveResponsible (data: ResponsibleDTO):Promise<ResponsibleInterface | undefined>
 };
