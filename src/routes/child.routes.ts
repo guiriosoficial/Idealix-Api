@@ -1,7 +1,7 @@
-import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
+import { celebrate, Joi, Segments } from 'celebrate';
+import ChildController from 'controllers/child.controller';
 import ensureAuthentication from 'middlewares/authHandler';
-import ChildController from '../controller/child.controller';
 
 const childController = new ChildController();
 const childRouter = Router();
@@ -20,6 +20,7 @@ childRouter.post(
 )
 childRouter.get(
     '/',
-    childController.getChild
+    childController.getChilds
 )
+
 export default childRouter;

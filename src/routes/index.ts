@@ -1,7 +1,7 @@
-import childRouter from '@modules/child/routes/child.routes';
-import classificationRouter from '@modules/classification/routes/classification.routes';
-import historicRouter from '@modules/historic/routes/historic.routes';
-import responsibleRouter from '@modules/responsible/routes/responsible.routes';
+import childRouter from 'routes/child.routes';
+import classificationRouter from 'routes/classification.routes';
+import historicRouter from 'routes/historic.routes';
+import responsibleRouter from 'routes/responsible.routes';
 import { Router } from 'express';
 
 const routes = Router();

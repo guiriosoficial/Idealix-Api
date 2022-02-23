@@ -1,9 +1,10 @@
-import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
-import ResponsibleController from '../controller/responsible.controller';
+import { celebrate, Joi, Segments } from 'celebrate';
+import ResponsibleController from 'controllers/responsible.controller';
 
 const responsibleController = new ResponsibleController();
 const responsibleRouter = Router();
+
 responsibleRouter.post(
     '/',
     celebrate({
@@ -25,4 +26,5 @@ responsibleRouter.post(
     }),
     responsibleController.postResponsible
 )
+
 export default responsibleRouter;

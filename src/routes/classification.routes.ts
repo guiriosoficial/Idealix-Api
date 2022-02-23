@@ -1,9 +1,10 @@
-import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
-import ClassificationController from '../controller/classification.controller';
+import { celebrate, Joi, Segments } from 'celebrate';
+import ClassificationController from 'controllers/classification.controller';
 
 const classificationController = new ClassificationController();
 const classificationRouter = Router();
+
 classificationRouter.get(
     '/',
     celebrate({
@@ -13,4 +14,5 @@ classificationRouter.get(
     }),
     classificationController.getClassification
 )
+
 export default classificationRouter;

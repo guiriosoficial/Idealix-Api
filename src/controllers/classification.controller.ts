@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import { ClassificationService } from '../services/classificationService';
+import { ClassificationService } from 'services/classification.service';
 
 export default class ClassificationController{
-    public async getClassification(request: Request, response: Response): Promise<Response> {
+    public async getClassification(_request: Request, response: Response): Promise<Response> {
         const classificationService = new ClassificationService();
         const result = await classificationService.getClassification();
 

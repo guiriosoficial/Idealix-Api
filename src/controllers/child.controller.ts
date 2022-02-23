@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { ChildService } from '../services/childService';
+import { ChildService } from 'services/child.service';
 
 export default class ChildController {
     public async postChild(request: Request, response: Response): Promise<Response> {
@@ -12,10 +12,11 @@ export default class ChildController {
         return response.status(201).json(result);
     }
 
-    public async getChild(request: Request, response: Response): Promise<Response> {
+    public async getChilds(request: Request, response: Response): Promise<Response> {
         const { id } = request.user;
+
         const childService = new ChildService();
-        const result = await childService.getChild({ responsible_id: id });
+        const result = await childService.getChilds({ responsible_id: id });
         
         return response.status(200).json(result);
     }

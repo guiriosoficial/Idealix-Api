@@ -1,6 +1,6 @@
-import Err from '@shared/err';
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
+import Err from '@shared/err';
 
 interface TokenPayloadInterface {
     iat: number;
@@ -9,11 +9,11 @@ interface TokenPayloadInterface {
 }
 
 export default function ensureAuthentication(
-    req: Request,
-    _res: Response,
+    request: Request,
+    _response: Response,
     next: NextFunction,
 ): any {
-    const authHeader = req.headers.authorization;
+    const authHeader = request.headers.authorization;
 
     if (!authHeader) {
         throw new Err('JWT token is missing', 401);
@@ -24,7 +24,7 @@ export default function ensureAuthentication(
     try {
         const decoded = verify(token, process.env.JWT_SECRET || '');
         const { id } = <TokenPayloadInterface>decoded;
-        req.user = {
+        request.user = {
             id,
         };
         return next();

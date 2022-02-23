@@ -1,9 +1,8 @@
-import { Classification } from "entity/Classification";
-import { ClassificationInterface } from "entity/Classification";
 import { getRepository, Repository } from "typeorm";
-import { ClassificationInterfaceService } from "./model";
+import { Classification, ClassificationInterface } from "entities/Classification";
+import { ClassificationModel } from "models/classification.model";
 
-export class ClassificationService implements ClassificationInterfaceService {
+export class ClassificationService implements ClassificationModel {
     private ormRepository: Repository<Classification>;
 
     constructor() {
